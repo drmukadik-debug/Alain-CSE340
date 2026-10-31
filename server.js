@@ -1,3 +1,4 @@
+
 import 'dotenv/config';
 import express from 'express';
 import path from 'path';
@@ -5,7 +6,7 @@ import { fileURLToPath } from 'url';
 
 // Environment configuration
 const PORT = process.env.PORT || 3000;
-const NODE_ENV = process.env.NODE_ENV || 'development';
+const NODE_ENV = process.env.NODE_ENV?.toLowerCase() || 'development';
 
 // Resolve the current directory
 const __filename = fileURLToPath(import.meta.url);
