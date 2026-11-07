@@ -167,7 +167,62 @@ VALUES
     '2026-12-07'
 );
 
+-- Create the category table
+CREATE TABLE category (
+    category_id SERIAL PRIMARY KEY,
+    category_name VARCHAR(100) NOT NULL UNIQUE
+);
+
+-- Create the junction table
+CREATE TABLE service_project_category (
+    project_id INTEGER NOT NULL,
+    category_id INTEGER NOT NULL,
+
+    PRIMARY KEY (project_id, category_id),
+
+    CONSTRAINT fk_project
+        FOREIGN KEY (project_id)
+        REFERENCES service_project (project_id)
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_category
+        FOREIGN KEY (category_id)
+        REFERENCES category (category_id)
+        ON DELETE CASCADE
+);
+
+-- Insert service project categories
+INSERT INTO category (category_name)
+VALUES
+    ('Infrastructure'),
+    ('Education'),
+    ('Environment'),
+    ('Community Development'),
+    ('Health and Social Support'),
+    ('Food Security');
+
+-- Associate projects with categories
+
+INSERT INTO service_project_category (project_id, category_id)
+SELECT p.project_id, c.category_id
 FROM service_project p
-INNER JOIN organization o
-    ON p.organization_id = o.organization_id
-ORDER BY p.project_id;
+CROSS JOIN category c
+WHERE
+    (p.title = 'Community Road Improvement' AND c.category_name = 'Infrastructure')
+    OR (p.title = 'School Building Renovation' AND c.category_name = 'Education')
+    OR (p.title = 'Community Water Project' AND c.category_name = 'Infrastructure')
+    OR (p.title = 'Public Park Construction' AND c.category_name = 'Environment')
+    OR (p.title = 'Community Bridge Repair' AND c.category_name = 'Infrastructure')
+    OR (p.title = 'Urban Community Garden' AND c.category_name = 'Environment')
+    OR (p.title = 'Tree Planting Campaign' AND c.category_name = 'Environment')
+    OR (p.title = 'Urban Farming Workshop' AND c.category_name = 'Education')
+    OR (p.title = 'School Vegetable Garden' AND c.category_name = 'Education')
+    OR (p.title = 'Food Sustainability Campaign' AND c.category_name = 'Food Security')
+    OR (p.title = 'Community Cleanup Day' AND c.category_name = 'Environment')
+    OR (p.title = 'Orphanage Support Project' AND c.category_name = 'Health and Social Support')
+    OR (p.title = 'Elderly Care Assistance' AND c.category_name = 'Health and Social Support')
+    OR (p.title = 'Community Food Distribution' AND c.category_name = 'Food Security')
+    OR (p.title = 'Youth Volunteer Program' AND c.category_name = 'Community Development');
+        OR (p.title = 'Youth Volunteer Program' AND c.category_name = 'Community Development')
+ON CONFLICT (project_id, category_id) DO NOTHING;
+

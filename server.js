@@ -6,6 +6,8 @@ import { fileURLToPath } from 'url';
 import pool from './src/database/pool.js';
 import { getAllProjects } from './src/models/projects.js';
 import { getAllOrganizations } from './src/models/organizations.js';
+import { getAllCategories } from './src/models/categories.js';
+
 
 // Environment configuration
 const PORT = process.env.PORT || 3000;
@@ -74,8 +76,19 @@ app.get('/projects', async (req, res) => {
 
 // Categories route
 app.get('/categories', async (req, res) => {
-    const title = 'Service Project Categories';
-    res.render('categories', { title });
+    try {
+        const title = 'Service Project Categories';
+
+        const categories = await getAllCategories();
+
+        res.render('categories', {
+            title,
+            categories
+        });
+    } catch (error) {
+        console.error('Error fetching categories:', error);
+        res.status(500).send('Internal Server Error');
+    }
 });
 
 // Database test route
