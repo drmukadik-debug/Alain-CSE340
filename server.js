@@ -5,6 +5,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import pool from './src/database/pool.js';
 import { getAllProjects } from './src/models/projects.js';
+import { getAllOrganizations } from './src/models/organizations.js';
 
 // Environment configuration
 const PORT = process.env.PORT || 3000;
@@ -31,24 +32,45 @@ app.get('/', async (req, res) => {
 });
 
 // Organizations route
+// Organizations route
 app.get('/organizations', async (req, res) => {
-    const title = 'Our Partner Organizations';
-    res.render('organizations', { title });
+    try {
+        const title = 'Our Partner Organizations';
+
+        const organizations = await getAllOrganizations();
+
+        res.render('organizations', {
+            title,
+            organizations
+        });
+
+    } catch (error) {
+        console.error('Error fetching organizations:', error);
+        res.status(500).send('Internal Server Error');
+    }
 });
 
 // Projects route
 
 // Projects route
+
 app.get('/projects', async (req, res) => {
-    const projects = await getAllProjects();
+    try {
+        const title = 'Service Projects';
 
-    console.log(projects);
+        const projects = await getAllProjects();
 
-    const title = 'Service Projects';
+        res.render('projects', {
+            title,
+            projects
+        });
 
-    res.render('projects', { title, projects });
+    } catch (error) {
+        console.error('Error fetching projects:', error);
+
+        res.status(500).send('Internal Server Error');
+    }
 });
-
 
 // Categories route
 app.get('/categories', async (req, res) => {

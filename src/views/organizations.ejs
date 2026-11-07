@@ -15,50 +15,28 @@
 
     <section class="organization-grid">
 
-        <article class="organization-card">
-            <img
-                src="/images/brightfuture-logo.png"
-                alt="Bright Future organization logo"
-            >
-            <h2>Bright Future</h2>
-            <p>
-                Supporting education and creating learning
-                opportunities for children and young people.
-            </p>
-            <a href="mailto:info@brightfuture.org">
-                Contact Organization
-            </a>
-        </article>
+        <% organizations.forEach(organization => { %>
 
-        <article class="organization-card">
-            <img
-                src="/images/greenharvest-logo.png"
-                alt="Green Harvest organization logo"
-            >
-            <h2>Green Harvest</h2>
-            <p>
-                Promoting environmental protection,
-                sustainability, and community gardening.
-            </p>
-            <a href="mailto:info@greenharvest.org">
-                Contact Organization
-            </a>
-        </article>
+            <article class="organization-card">
 
-        <article class="organization-card">
-            <img
-                src="/images/unityserve-logo.png"
-                alt="Unity Serve organization logo"
-            >
-            <h2>Unity Serve</h2>
-            <p>
-                Connecting volunteers with community
-                development and social support projects.
-            </p>
-            <a href="mailto:info@unityserve.org">
-                Contact Organization
-            </a>
-        </article>
+                <img
+                    src="/images/<%= organization.logo_filename %>"
+                    alt="<%= organization.name %> logo"
+                >
+
+                <h2><%= organization.name %></h2>
+
+                <p>
+                    <%= organization.description %>
+                </p>
+
+                <a href="mailto:<%= organization.contact_email %>">
+                    Contact Organization
+                </a>
+
+            </article>
+
+        <% }); %>
 
     </section>
 
