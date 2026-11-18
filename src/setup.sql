@@ -223,6 +223,4 @@ WHERE
     OR (p.title = 'Elderly Care Assistance' AND c.category_name = 'Health and Social Support')
     OR (p.title = 'Community Food Distribution' AND c.category_name = 'Food Security')
     OR (p.title = 'Youth Volunteer Program' AND c.category_name = 'Community Development');
-        OR (p.title = 'Youth Volunteer Program' AND c.category_name = 'Community Development')
 ON CONFLICT (project_id, category_id) DO NOTHING;
-
