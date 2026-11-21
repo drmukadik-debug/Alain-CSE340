@@ -295,3 +295,14 @@ a:hover {
         font-size: 2rem;
     }
 }
+
+.category-link {
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.category-link:hover {
+    color: #0b8278;
+    text-decoration: underline;
+}
