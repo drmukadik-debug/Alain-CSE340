@@ -1,45 +1,18 @@
-
 <%- include('partials/header') %>
+<main>
+    <h1><%= title %></h1>
 
-<main class="container page-content">
-
-    <section class="page-intro">
-        <p class="eyebrow">Working together</p>
-        <h1><%= title %></h1>
-
-        <p>
-            Meet the organizations working with us to
-            create positive changes in our communities.
-        </p>
-    </section>
-
-    <section class="organization-grid">
-
+    <p>Here are a few of our partner organizations:</p>
+    <ul>
         <% organizations.forEach(organization => { %>
-
-            <article class="organization-card">
-
-                <img
-                    src="/images/<%= organization.logo_filename %>"
-                    alt="<%= organization.name %> logo"
-                >
-
-                <h2><%= organization.name %></h2>
-
-                <p>
-                    <%= organization.description %>
-                </p>
-
-                <a href="mailto:<%= organization.contact_email %>">
-                    Contact Organization
-                </a>
-
-            </article>
-
+            <li>
+                <img src="/images/<%= organization.logo_filename %>" alt="<%= organization.name %> logo">
+                <a href="/organization/<%= organization.organization_id %>">
+                    <%= organization.name %>
+                </a>: <%= organization.contact_email %>
+            </li>
         <% }); %>
-
-    </section>
-
+    </ul>
 </main>
 
 <%- include('partials/footer') %>

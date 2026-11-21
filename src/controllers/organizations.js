@@ -1,7 +1,8 @@
-// Import the model function
-import { getAllOrganizations } from '../models/organizations.js';
 
-// Define the controller function
+import { getAllOrganizations, getOrganizationDetails } from '../models/organizations.js';
+import { getProjectsByOrganizationId } from '../models/projects.js';
+
+// Display all organizations
 const showOrganizationsPage = async (req, res) => {
     const organizations = await getAllOrganizations();
     const title = 'Our Partner Organizations';
@@ -9,5 +10,15 @@ const showOrganizationsPage = async (req, res) => {
     res.render('organizations', { title, organizations });
 };
 
-// Export the controller function
-export { showOrganizationsPage };
+// Display organization details and associated projects
+const showOrganizationDetailsPage = async (req, res) => {
+    const organizationId = req.params.id;
+    const organizationDetails = await getOrganizationDetails(organizationId);
+    const projects = await getProjectsByOrganizationId(organizationId);
+    const title = 'Organization Details';
+
+    res.render('organization', { title, organizationDetails, projects });
+};
+
+// Export the controller functions
+export { showOrganizationsPage, showOrganizationDetailsPage };
