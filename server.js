@@ -16,6 +16,10 @@ const __dirname = path.dirname(__filename);
 // Initialize Express
 const app = express();
 
+// Middleware to parse form data and JSON
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 // Configure EJS
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'src/views'));
