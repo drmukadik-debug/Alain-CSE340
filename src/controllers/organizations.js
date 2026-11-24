@@ -1,3 +1,4 @@
+import { validationResult } from 'express-validator';
 import {
     getAllOrganizations,
     getOrganizationDetails,
@@ -33,8 +34,17 @@ const showNewOrganizationForm = async (req, res) => {
 
 // Process the new organization form
 const processNewOrganizationForm = async (req, res) => {
-    const { name, description, contactEmail } = req.body;
+    const errors = validationResult(req);
 
+    if (!errors.isEmpty()) {
+        errors.array().forEach(error => {
+            req.flash('error', error.msg);
+        });
+
+        return res.redirect('/new-organization');
+    }
+
+    const { name, description, contactEmail } = req.body;
     const logoFilename = 'placeholder-logo.png';
 
     const organizationId = await createOrganization(
@@ -45,7 +55,6 @@ const processNewOrganizationForm = async (req, res) => {
     );
 
     req.flash('success', 'Organization created successfully!');
-
     res.redirect(`/organization/${organizationId}`);
 };
 

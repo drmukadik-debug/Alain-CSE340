@@ -35,3 +35,11 @@
         <% }); %>
     </div>
 <% } %>
+
+<% if (flashMessages.error && flashMessages.error.length > 0) { %>
+    <div class="flash-message flash-error">
+        <% flashMessages.error.forEach(message => { %>
+            <p><%= message %></p>
+        <% }); %>
+    </div>
+<% } %>

@@ -20,6 +20,7 @@ import {
 } from './controllers/categories.js';
 
 import { testErrorPage } from './controllers/errors.js';
+import { organizationValidation } from './validators/organization-validation.js';
 
 const router = express.Router();
 
@@ -28,7 +29,13 @@ router.get('/', showHomePage);
 router.get('/organizations', showOrganizationsPage);
 router.get('/organization/:id', showOrganizationDetailsPage);
 router.get('/new-organization', showNewOrganizationForm);
-router.post('/new-organization', processNewOrganizationForm);
+
+router.post(
+    '/new-organization',
+    organizationValidation,
+    processNewOrganizationForm
+);
+
 router.get('/projects', showProjectsPage);
 router.get('/project/:id', showProjectDetailsPage);
 router.get('/categories', showCategoriesPage);
