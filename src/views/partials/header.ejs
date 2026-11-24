@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,3 +27,11 @@
 
     </nav>
 </header>
+
+<% if (flashMessages.success && flashMessages.success.length > 0) { %>
+    <div class="flash-message flash-success">
+        <% flashMessages.success.forEach(message => { %>
+            <p><%= message %></p>
+        <% }); %>
+    </div>
+<% } %>

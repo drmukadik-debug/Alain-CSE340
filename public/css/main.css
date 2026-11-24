@@ -379,3 +379,27 @@ a:hover {
         padding: 20px;
     }
 }
+
+/* =================================
+   12. FLASH MESSAGES
+================================= */
+
+.flash-message {
+    max-width: 1100px;
+    width: 90%;
+    margin: 25px auto;
+    padding: 15px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.flash-success {
+    background-color: #e5f1ed;
+    color: #123c3a;
+    border: 1px solid #87c9b5;
+    border-left: 5px solid #087f70;
+}
+
+.flash-success p {
+    margin: 0;
+}

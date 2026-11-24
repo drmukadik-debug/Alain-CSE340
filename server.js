@@ -4,6 +4,8 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import pool from './src/database/pool.js';
 import router from './src/routes.js';
+import session from 'express-session';
+import flashMiddleware from './src/middleware/flash.js';
 
 // Environment configuration
 const PORT = process.env.PORT || 3000;
@@ -19,6 +21,19 @@ const app = express();
 // Middleware to parse form data and JSON
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+// Configure session middleware
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        maxAge: 1000 * 60 * 60 // 1 hour
+    }
+}));
+
+// Configure flash message middleware
+app.use(flashMiddleware);
 
 // Configure EJS
 app.set('view engine', 'ejs');
