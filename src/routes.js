@@ -13,7 +13,10 @@ import {
 
 import {
     showProjectsPage,
-    showProjectDetailsPage
+    showProjectDetailsPage,
+    showNewProjectForm,
+    processNewProjectForm,
+    projectValidation
 } from './controllers/projects.js';
 
 import {
@@ -28,6 +31,8 @@ const router = express.Router();
 
 // Main routes
 router.get('/', showHomePage);
+
+// Organizations
 router.get('/organizations', showOrganizationsPage);
 router.get('/organization/:id', showOrganizationDetailsPage);
 router.get('/new-organization', showNewOrganizationForm);
@@ -45,10 +50,20 @@ router.post(
     processNewOrganizationForm
 );
 
-router.get('/projects', showProjectsPage);
-router.get('/project/:id', showProjectDetailsPage);
+// Categories
 router.get('/categories', showCategoriesPage);
 router.get('/category/:id', showCategoryDetailsPage);
+
+// Projects
+router.get('/projects', showProjectsPage);
+router.get('/project/:id', showProjectDetailsPage);
+router.get('/new-project', showNewProjectForm);
+
+router.post(
+    '/new-project',
+    projectValidation,
+    processNewProjectForm
+);
 
 // Error-handling routes
 router.get('/test-error', testErrorPage);
